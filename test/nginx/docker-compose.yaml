@@ -5,4 +5,4 @@ services:
     environment:
       - NGINX_ENTRYPOINT_QUIET_LOGS=1
     volumes:
-      - /home/nginx/nginx-content:/usr/share/nginx/html
+      - /home/nginx/nginx-content:/usr/share/nginx/htmlg
