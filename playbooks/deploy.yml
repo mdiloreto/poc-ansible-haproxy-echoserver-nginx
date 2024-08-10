@@ -1,0 +1,45 @@
+---
+- hosts: localhost
+  become: false
+  vars:
+    nginx_server_count: 3
+    echo_server_count: 3
+    project_src_path: /usr/local/bin/haproxy-poc/
+
+  tasks:
+    - name: Include Nginx role
+      import_role:
+        name: nginx
+
+    - name: Include Echo Server role
+      import_role:
+        name: echoserver
+
+    - name: Include HAProxy role
+      import_role:
+        name: haproxy
+
+    - name: Deploy Nginx services with scaling
+      docker_compose:
+        project_src: "{{ project_src_path }}"
+        files:
+          - docker-compose-nginx.yml
+        state: present
+        scale:
+          nginx: "{{ nginx_server_count }}"
+
+    - name: Deploy Echo Server services with scaling
+      docker_compose:
+        project_src: "{{ project_src_path }}"
+        files:
+          - docker-compose-echoserver.yml
+        state: present
+        scale:
+          echoserver: "{{ echo_server_count }}"
+
+    - name: Deploy HAProxy services
+      docker_compose:
+        project_src: "{{ project_src_path }}"
+        files:
+          - docker-compose-haproxy.yml
+        state: present

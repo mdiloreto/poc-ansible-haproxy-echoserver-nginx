@@ -1,0 +1,34 @@
+version: '3.8'
+services:
+  nginx:
+    image: nginx:latest
+    deploy:
+      replicas: 3  # Number of Nginx replicas
+    networks:
+      - app_net
+    volumes:
+      - ./nginx/entrypoint.sh:/usr/local/bin/entrypoint.sh 
+
+    entrypoint: /usr/local/bin/entrypoint.sh  # Use the mounted script as the entrypoint
+
+  echoserver:
+    image: gcr.io/google_containers/echoserver:1.8
+    deploy:
+      replicas: 3
+    networks:
+      - app_net
+
+  haproxy:
+    image: haproxy:3.0.3
+    container_name: haproxyserver
+    ports:
+      - "80:80"
+      - "8404:8404"
+    networks:
+      - app_net
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+
+networks:
+  app_net:
+    external: true

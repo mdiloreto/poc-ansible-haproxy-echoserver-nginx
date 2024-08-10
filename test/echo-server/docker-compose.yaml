@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  echoserver:
+    ports:
+      - "8080:8080"
+    image: gcr.io/google_containers/echoserver:1.8
+    networks:
+      - app_net
+networks:
+  app_net:
+    driver: bridge

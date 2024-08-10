@@ -1,8 +1,18 @@
-version: '3'
+version: '3.8'
 services:
   nginx:
     image: nginx:latest
+    ports:
+      - 80:80
+    networks:
+      - app_net
     environment:
-      - NGINX_ENTRYPOINT_QUIET_LOGS=1
+      - SERVER_ID={{.Task.Slot}}  # Use Docker's Task Slot for the server ID
     volumes:
-      - /home/nginx/nginx-content:/usr/share/nginx/htmlg
+      - ./entrypoint.sh:/usr/local/bin/entrypoint.sh  # Mount the entrypoint script
+      - ./html:/usr/share/nginx/html  # Mount the HTML directory
+    entrypoint: /usr/local/bin/entrypoint.sh
+
+networks:
+  app_net:
+    driver: bridge
