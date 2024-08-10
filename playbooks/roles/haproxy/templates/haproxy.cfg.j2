@@ -1,0 +1,23 @@
+defaults
+    mode http
+    timeout client 10s
+    timeout connect 5s
+    timeout server 10s
+    timeout http-request 10s
+
+frontend http-in
+    bind *:80
+    use_backend echoservers if { path /api } || { path_beg /api/ }
+    use_backend nginxservers if { path /statics } || { path_beg /statics/ }
+
+backend echoservers
+    http-request replace-path /api(/)?(.*) /\2
+    {% for i in range(1, echo_server_count + 1) %}
+    server echoserver{{ i }} echoserver{{ i }}:8080 check maxconn 30
+    {% endfor %}
+
+backend nginxservers
+    http-request replace-path /statics(/)?(.*) /\2
+    {% for i in range(1, nginx_server_count + 1) %}
+    server nginx{{ i }} nginx{{ i }}:80 check maxconn 30
+    {% endfor %}

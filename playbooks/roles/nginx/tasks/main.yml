@@ -1,0 +1,24 @@
+
+- name: Ensure deployment directory exists
+  file:
+    path: "{{ project_src_path }}/"
+    state: directory
+    mode: '0755'
+
+- name: Ensure deployment directory exists
+  file:
+    path: "{{ project_src_path }}/nginx"
+    state: directory
+    mode: '0755'
+
+
+- name: Copy fixed entrypoint.sh to deployment directory
+  copy:
+    src: "{{ playbook_dir }}/roles/nginx/files/{{ entrypoint_file }}"
+    dest: "{{ project_src_path }}/nginx/{{ entrypoint_file }}"
+    mode: '0755'
+
+- name: Generate docker-compose.yml for Nginx
+  template:
+    src: "{{ playbook_dir }}/roles/nginx/templates/docker-compose.yml.j2"
+    dest: "{{ project_src_path }}/docker-compose-nginx.yml"

@@ -1,0 +1,7 @@
+# defaults/main.yml
+
+nginx_image: "nginx:latest"
+nginx_server_count: 1
+network: "app_net"
+entrypoint_file: "entrypoint.sh"
+project_src_path: "/usr/local/bin/haproxy-poc"

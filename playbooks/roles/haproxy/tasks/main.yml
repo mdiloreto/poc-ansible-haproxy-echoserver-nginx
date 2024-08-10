@@ -1,0 +1,23 @@
+- name: Ensure deployment directory exists
+  file:
+    path: "{{ project_src_path }}/"
+    state: directory
+    mode: '0755'
+
+- name: Ensure deployment directory exists
+  file:
+    path: "{{ project_src_path }}/haproxy"
+    state: directory
+    mode: '0755'
+
+- name: Generate haproxy.cfg
+  template:
+    src: "{{ playbook_dir }}/roles/haproxy/templates/haproxy.cfg.j2"
+    dest: "{{ project_src_path }}/haproxy/haproxy.cfg"
+    mode: '0644'
+
+- name: Generate docker-compose.yml for HAProxy
+  template:
+    src: "{{ playbook_dir }}/roles/haproxy/templates/docker-compose.yml.j2"
+    dest: "{{ project_src_path }}/docker-compose-haproxy.yml"
+    mode: '0644'

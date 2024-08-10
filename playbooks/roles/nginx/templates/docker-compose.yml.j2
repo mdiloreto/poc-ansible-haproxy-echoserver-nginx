@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  nginx:
+    image: {{ nginx_image }}
+    networks:
+      - {{ network }}
+    volumes:
+      - ./{{entrypoint_file}}:/usr/local/bin/{{entrypoint_file}}
+    
+    entrypoint.sh: /usr/local/bin/{{entrypoint_file}}
+
+networks:
+  {{ network }}:
+    external: true
