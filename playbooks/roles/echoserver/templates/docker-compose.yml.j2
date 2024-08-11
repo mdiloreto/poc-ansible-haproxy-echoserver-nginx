@@ -1,8 +1,7 @@
-version: '3'
 services:
   echoserver:
     image: gcr.io/google_containers/echoserver:1.8
 
 networks:
-  app_net:    
+  {{ network }}:     
     external: true

@@ -23,6 +23,7 @@ module "linux_vm_debian" {
   network_name = module.vpc_network.network_name
   subnet_name  = module.vpc_network.subnet_name[0]
   depends_on   = [module.vpc_network]
+  startup_script = "./scripts/startup_script.sh"
 }
 
 

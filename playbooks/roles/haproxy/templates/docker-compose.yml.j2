@@ -1,13 +1,12 @@
-haproxy:
-image: {{ haproxy_image }}
-container_name: haproxyserver
-ports:
-  - "80:80"
-networks:
-  - {{ network }}
-volumes:
-  - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+services:
+  haproxy:
+    image: {{ haproxy_image }}
+    container_name: haproxyserver
+    ports:
+      - "80:80"
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
 
 networks:
-  app_net:    
+  {{ network }}:    
     external: true

@@ -1,6 +1,6 @@
 region          = "us-east4"
 zone            = "us-east4-a"
-
+project_id      = "silent-wharf-427322-a0"
 network_name    = "haproxy-poc-vpc"
 subnet_name     = "haproxy-poc-vpc-sn"
 
