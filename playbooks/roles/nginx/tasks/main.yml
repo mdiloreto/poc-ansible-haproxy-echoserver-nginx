@@ -18,6 +18,12 @@
     dest: "{{ project_src_path }}/nginx/{{ entrypoint_file }}"
     mode: '0755'
 
+- name: Copy fixed nginx.conf to deployment directory
+  copy:
+    src: "{{ playbook_dir }}/roles/nginx/files/nginx.conf"
+    dest: "{{ project_src_path }}/nginx/nginx.conf"
+    mode: '0755'
+
 - name: Generate docker-compose.yml for Nginx
   template:
     src: "{{ playbook_dir }}/roles/nginx/templates/docker-compose.yml.j2"
