@@ -7,14 +7,6 @@
 - name: Generate docker-compose.yml for Echo Server
   template:
     src: "{{ playbook_dir }}/roles/echoserver/templates/docker-compose.yml.j2"
-    dest: "/usr/local/bin/haproxy-poc/docker-compose-echoserver.yml"
+    dest: "{{ project_src_path }}/docker-compose-echoserver.yml"
     mode: '0644'
 
-- name: Deploy Docker Compose with scaling
-  tasks:
-    - name: Create and start services with scaling
-      docker_compose:
-        project_src: /usr/local/bin/haproxy-poc/
-        files:
-          - docker-compose-echoserver.yml
-        state: present
