@@ -21,16 +21,12 @@ sudo apt-get install docker-compose-plugin
 sudo docker --version
 docker network create app_net
 
-## Install Python Docker
+## Install community.docker
 
-sudo apt-get update
-sudo apt-get install python3-pip -y
-sudo pip3 install docker
+ansible-galaxy collection install community.docker
 
 ## Clone repo and execute playbook
 
 git clone https://github.com/mdiloreto/poc-ansible-haproxy-echoserver-nginx /tmp/haproxy-poc
-
 cd /tmp/haproxy-poc/playbooks/
-
 ansible-playbook deploy.yml
