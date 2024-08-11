@@ -14,7 +14,7 @@ module "vpc_network" {
 }
 
 module "linux_vm_debian" {
-  count        = 0
+  count        = 1
   source       = "./modules/linux instance"
   vm_name      = "haproxy-poc"
   project      = var.project_id
