@@ -7,13 +7,25 @@ defaults
 
 frontend http-in
     bind *:80
-    use_backend echoservers if { path /api } || { path_beg /api/ }
-    use_backend nginxservers if { path /statics } || { path_beg /statics/ }
+    acl path_statics_path path /statics/path
+    acl path_statics_path_beg path /statics/path/
+    acl path_statics path /statics
+    acl path_statics_beg path /statics/
+    use_backend echoservers if { path_beg /api }
+    use_backend nginxservers_path if path_statics_path || path_statics_path_beg
+    use_backend nginxservers if path_statics || path_statics_beg
 
 backend echoservers
     http-request replace-path /api(/)?(.*) /\2
     {% for i in range(1, echo_server_count + 1) %}
     server haproxy-poc-echoserver-{{ i }} haproxy-poc-echoserver-{{ i }}:8080 check maxconn 30
+    {% endfor %}
+
+backend nginxservers_path
+    # stick-table type string len 100 size 10k expire 1h
+    cookie SERVER_USED insert indirect nocache
+    {% for i in range(1, nginx_server_count + 1) %}
+    server haproxy-poc-nginx-{{ i }} haproxy-poc-nginx-{{ i }}:80 check maxconn 30
     {% endfor %}
 
 backend nginxservers
