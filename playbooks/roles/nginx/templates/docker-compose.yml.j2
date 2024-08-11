@@ -3,8 +3,7 @@ services:
     image: {{ nginx_image }}
     volumes:
       - ./{{entrypoint_file}}:/usr/local/bin/{{entrypoint_file}}
-    
-    entrypoint.sh: /usr/local/bin/{{entrypoint_file}}
+    entrypoint: /usr/local/bin/{{entrypoint_file}}
 
 networks:
   {{ network }}:
