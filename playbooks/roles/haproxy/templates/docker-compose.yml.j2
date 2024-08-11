@@ -5,7 +5,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+      - "{{ project_src_path }}/haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg"
 
 networks:
   {{ network }}:    
