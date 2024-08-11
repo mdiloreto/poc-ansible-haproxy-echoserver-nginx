@@ -2,7 +2,7 @@ services:
   nginx:
     image: {{ nginx_image }}
     volumes:
-      - ./{{entrypoint_file}}:/usr/local/bin/{{entrypoint_file}}
+      - /usr/local/bin/haproxy-poc/nginx/{{entrypoint_file}}:/usr/local/bin/{{entrypoint_file}}
     entrypoint: /usr/local/bin/{{entrypoint_file}}
 
 networks:
