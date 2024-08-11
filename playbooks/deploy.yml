@@ -20,7 +20,7 @@
         name: haproxy
 
     - name: Deploy Nginx services with scaling
-      docker_compose:
+      community.docker.docker_compose_v2:
         project_src: "{{ project_src_path }}"
         files:
           - docker-compose-nginx.yml
@@ -29,7 +29,7 @@
           nginx: "{{ nginx_server_count }}"
 
     - name: Deploy Echo Server services with scaling
-      docker_compose:
+      community.docker.docker_compose_v2:
         project_src: "{{ project_src_path }}"
         files:
           - docker-compose-echoserver.yml
@@ -38,7 +38,7 @@
           echoserver: "{{ echo_server_count }}"
 
     - name: Deploy HAProxy services
-      docker_compose:
+      community.docker.docker_compose_v2:
         project_src: "{{ project_src_path }}"
         files:
           - docker-compose-haproxy.yml
