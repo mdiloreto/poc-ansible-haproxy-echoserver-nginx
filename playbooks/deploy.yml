@@ -1,6 +1,6 @@
 ---
 - hosts: localhost
-  become: false
+  become: true
   vars:
     nginx_server_count: 3
     echo_server_count: 3
