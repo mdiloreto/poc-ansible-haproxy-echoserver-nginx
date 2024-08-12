@@ -26,7 +26,7 @@
           - docker-compose-nginx.yml
         state: restarted
         scale:
-          nginx: "{{ nginx_server_count }}"
+          haproxy-poc-nginx: "{{ nginx_server_count }}"
 
     - name: Deploy Echo Server services with scaling
       community.docker.docker_compose_v2:
@@ -35,7 +35,7 @@
           - docker-compose-echoserver.yml
         state: restarted
         scale:
-          echoserver: "{{ echo_server_count }}"
+          haproxy-poc-echoserver: "{{ echo_server_count }}"
 
     - name: Deploy HAProxy services
       community.docker.docker_compose_v2:
