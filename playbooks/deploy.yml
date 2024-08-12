@@ -2,8 +2,8 @@
 - hosts: localhost
   become: true
   vars:
-    nginx_server_count: 2
-    echo_server_count: 2
+    nginx_server_count: 8
+    echo_server_count: 8
     project_src_path: /usr/local/bin/haproxy-poc/
 
   tasks:
