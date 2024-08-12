@@ -24,7 +24,7 @@
         project_src: "{{ project_src_path }}"
         files:
           - docker-compose-nginx.yml
-        state: present
+        state: restarted
         scale:
           nginx: "{{ nginx_server_count }}"
 
@@ -33,7 +33,7 @@
         project_src: "{{ project_src_path }}"
         files:
           - docker-compose-echoserver.yml
-        state: present
+        state: restarted
         scale:
           echoserver: "{{ echo_server_count }}"
 
