@@ -64,5 +64,5 @@ resource "google_compute_instance" "default" {
     ignore_changes = [
       metadata_startup_script
     ]
-
+  }
 }
