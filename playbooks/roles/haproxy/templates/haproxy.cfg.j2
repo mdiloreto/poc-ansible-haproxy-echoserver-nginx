@@ -8,7 +8,7 @@ defaults
 frontend http-in
     bind *:80
     acl path_statics_path path /statics/path
-    acl path_statics_path_beg path /statics/path/
+    acl path_statics_path_beg path_beg /statics/path/
     acl path_statics path /statics
     acl path_statics_beg path /statics/
     use_backend echoservers if { path_beg /api }
@@ -22,9 +22,11 @@ backend echoservers
     {% endfor %}
 
 backend nginxservers_path
-    cookie SERVER_USED insert indirect nocache
+    mode tcp
+    stick-table type ip  size 1m  expire 30m
+    stick on src
     {% for i in range(1, nginx_server_count + 1) %}
-    server haproxy-poc-nginx-{{ i }} haproxy-poc-nginx-{{ i }}:80 check cookie s{{ i }}
+    server haproxy-poc-nginx-{{ i }} haproxy-poc-nginx-{{ i }}:80 check 
     {% endfor %}
 
 backend nginxservers
