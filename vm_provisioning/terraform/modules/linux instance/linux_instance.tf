@@ -59,4 +59,10 @@ resource "google_compute_instance" "default" {
     email  = google_service_account.default[count.index].email
     scopes = var.vm_sa_scopes
   }
+
+  lifecycle {
+    ignore_changes = [
+      metadata_startup_script
+    ]
+
 }
