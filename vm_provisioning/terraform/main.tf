@@ -27,7 +27,7 @@ module "linux_vm_debian" {
 }
 
 resource "null_resource" "run_ansible_playbook" {
-  depends_on = [google_compute_instance.haproxy_vm]
+  depends_on = [module.linux_vm_debian]
 
   provisioner "local-exec" {
     command = <<EOT
