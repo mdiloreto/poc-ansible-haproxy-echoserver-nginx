@@ -24,7 +24,7 @@ backend echoservers
 backend nginxservers_path
     cookie SERVER_USED insert indirect nocache
     {% for i in range(1, nginx_server_count + 1) %}
-    server haproxy-poc-nginx-{{ i }} haproxy-poc-nginx-{{ i }}:80 check maxconn 30
+    server haproxy-poc-nginx-{{ i }} haproxy-poc-nginx-{{ i }}:80 check cookie s{{ i }}
     {% endfor %}
 
 backend nginxservers
