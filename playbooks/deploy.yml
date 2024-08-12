@@ -19,27 +19,43 @@
       import_role:
         name: haproxy
 
-    - name: Deploy Nginx services with scaling
+    - name: Restart NGINX Containers 
       community.docker.docker_compose_v2:
         project_src: "{{ project_src_path }}"
         files:
           - docker-compose-nginx.yml
         state: restarted
-        scale:
-          nginx: "{{ nginx_server_count }}"
 
-    - name: Deploy Echo Server services with scaling
+    - name: Restart Echo Server Containers 
       community.docker.docker_compose_v2:
         project_src: "{{ project_src_path }}"
         files:
           - docker-compose-echoserver.yml
         state: restarted
-        scale:
-          echoserver: "{{ echo_server_count }}"
 
-    - name: Deploy HAProxy services
+    - name: Restart HAProxy Container
       community.docker.docker_compose_v2:
         project_src: "{{ project_src_path }}"
         files:
           - docker-compose-haproxy.yml
         state: restarted
+
+    - name: Scale Nginx Conatiners
+      community.docker.docker_compose_v2:
+        project_src: "{{ project_src_path }}"
+        files:
+          - docker-compose-nginx.yml
+        state: present
+        scale:
+          nginx: "{{ nginx_server_count }}"
+
+    - name: Scale Echo server Containers
+      community.docker.docker_compose_v2:
+        project_src: "{{ project_src_path }}"
+        files:
+          - docker-compose-echoserver.yml
+        state: present
+        scale:
+          echoserver: "{{ echo_server_count }}"
+
+
