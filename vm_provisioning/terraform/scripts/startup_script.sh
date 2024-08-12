@@ -39,5 +39,5 @@ echo "Cloning repository and executing playbook..."
 git clone https://github.com/mdiloreto/poc-ansible-haproxy-echoserver-nginx /tmp/haproxy-poc || { echo "Failed to clone repository"; exit 1; }
 cd /tmp/haproxy-poc/playbooks/ || { echo "Failed to navigate to playbooks directory"; exit 1; }
 sudo ansible-playbook deploy.yml && echo "Playbook executed successfully." || { echo "Playbook execution failed"; exit 1; }
-
+sudo touch /tmp/haproxy-poc/startup_finished.txt
 echo "Script finished at $(date)"

@@ -27,16 +27,17 @@ module "linux_vm_debian" {
 }
 
 resource "null_resource" "run_ansible_playbook" {
+## needs to be made scalabe to run with for_each statement based on the linux_vm_debian module count
+
   depends_on = [module.linux_vm_debian]
 
   provisioner "local-exec" {
     command = <<EOT
       gcloud compute ssh ${module.linux_vm_debian[0].vm_name[0]} \
       --zone ${module.linux_vm_debian[0].zone[0]} \
-      --command 'ansible-playbook /tmp/haproxy-poc/playbooks/deploy.yml && echo "Playbook executed successfully." || { echo "Playbook execution failed"; exit 1; }'
+      --command 'if [ ! -f /tmp/haproxy-poc/startup_finished.txt ]; then exit 0; else ansible-playbook /tmp/haproxy-poc/playbooks/deploy.yml && echo "Playbook executed successfully." || { echo "Playbook execution failed"; exit 1; }; fi'
     EOT
   }
-
   triggers = {
     always_run = "${timestamp()}"
   }
