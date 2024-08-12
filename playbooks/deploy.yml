@@ -42,4 +42,5 @@
         project_src: "{{ project_src_path }}"
         files:
           - docker-compose-haproxy.yml
-        state: present
+        state: restarted
+      when: "'haproxy.cfg' in ansible_facts.changed_files"
