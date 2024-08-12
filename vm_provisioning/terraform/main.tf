@@ -26,6 +26,21 @@ module "linux_vm_debian" {
   startup_script = "./scripts/startup_script.sh"
 }
 
+resource "null_resource" "run_ansible_playbook" {
+  depends_on = [google_compute_instance.haproxy_vm]
+
+  provisioner "local-exec" {
+    command = <<EOT
+      gcloud compute ssh ${google_compute_instance.haproxy_vm.name} \
+      --zone ${google_compute_instance.haproxy_vm.zone} \
+      --command 'ansible-playbook /tmp/haproxy-poc/playbooks/deploy.yml && echo "Playbook executed successfully." || { echo "Playbook execution failed"; exit 1; }'
+    EOT
+  }
+
+  triggers = {
+    always_run = "${timestamp()}"
+  }
+}
 
 module "firewall-rules" {
   source = "./modules/firewall_rules"
