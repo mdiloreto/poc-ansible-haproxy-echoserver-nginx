@@ -1,0 +1,35 @@
+name: Terraform Deploy and Ansible Playbook Execution
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  terraform:
+    name: Terraform Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2       
+
+      - name: Terraform Init
+        run: terraform init
+        env: 
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+          
+      - name: Terraform Plan
+        run: terraform plan
+        env: 
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+
+      - name: Terraform Apply
+        id: apply
+        run: terraform apply -auto-approve
+        env: 
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}        
