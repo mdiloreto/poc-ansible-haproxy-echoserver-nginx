@@ -16,6 +16,6 @@
   }
 
   output "vm_name" {
-    value = [ for instance in google_compute_instance.default : instance.vm_name ]
+    value = [ for instance in google_compute_instance.default : instance.name ]
   }
 
