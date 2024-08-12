@@ -25,6 +25,8 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.
 sudo apt-get update -y 
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin 
 sudo docker --version && echo "Docker installed successfully." || { echo "Docker installation failed"; exit 1; }
+
+## Create Docker Network 
 sudo docker network create app_net
 echo "Docker network created."
 
