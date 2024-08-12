@@ -7,15 +7,18 @@ This project provides the necessary Ansible playbooks and Terraform configuratio
 ## Project Components
 
 ### 1. Base System
+
 - **Terraform Configuration**: The project includes Terraform code to provision a virtual machine (VM) in GCP. This VM serves as the base system for running Docker containers.
 - **Ansible Playbook**: An Ansible playbook is used to install Docker and Docker Compose on the VM, and to deploy the containerized applications.
 
 ### 2. Application Setup
 
 #### API Application
+
 - **EchoServer**: The Ansible playbook deploys a Docker container running the `gcr.io/google_containers/echoserver:1.8` image. This container simulates API responses for requests prefixed with `/api`.
 
 #### Static Content Application
+
 - **Nginx**: Another Docker container runs the `nginx:latest` image, serving static content for requests prefixed with `/statics`. Each Nginx instance responds with a message indicating the server handling the request.
 
 ### 3. Load Balancer
