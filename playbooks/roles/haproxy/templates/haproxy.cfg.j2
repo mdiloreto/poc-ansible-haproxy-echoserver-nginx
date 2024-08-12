@@ -23,6 +23,7 @@ backend echoservers
 
 backend nginxservers_path
     mode http
+    http-request replace-path /statics/path(/)?(.*) /\2
     stick-table type ip  size 1m  expire 30m
     stick on src
     {% for i in range(1, nginx_server_count + 1) %}
