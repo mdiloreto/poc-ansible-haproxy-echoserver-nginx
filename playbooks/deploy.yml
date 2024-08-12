@@ -43,4 +43,3 @@
         files:
           - docker-compose-haproxy.yml
         state: restarted
-      when: "'haproxy.cfg' in ansible_facts.changed_files"
