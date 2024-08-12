@@ -31,8 +31,8 @@ resource "null_resource" "run_ansible_playbook" {
 
   provisioner "local-exec" {
     command = <<EOT
-      gcloud compute ssh ${google_compute_instance.linux_vm_debian.name} \
-      --zone ${google_compute_instance.linux_vm_debian.zone} \
+      gcloud compute ssh ${google_compute_instance.linux_vm_debian[0].name} \
+      --zone ${google_compute_instance.linux_vm_debian[0].zone} \
       --command 'ansible-playbook /tmp/haproxy-poc/playbooks/deploy.yml && echo "Playbook executed successfully." || { echo "Playbook execution failed"; exit 1; }'
     EOT
   }
