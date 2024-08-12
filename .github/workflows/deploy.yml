@@ -28,17 +28,17 @@ jobs:
         run: terraform init
         working-directory: vm_provisioning/terraform        
         env: 
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
           
       - name: Terraform Plan
         run: terraform plan
         working-directory: vm_provisioning/terraform
         env: 
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
 
       - name: Terraform Apply
         id: apply
         run: terraform apply -auto-approve
         working-directory: vm_provisioning/terraform
         env: 
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}        
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}        
