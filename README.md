@@ -51,10 +51,3 @@ The project includes a fully automated CI/CD pipeline that deploys both the Terr
 
 ### Restarting HAProxy
 The Ansible playbook is designed to restart the HAProxy service automatically whenever a configuration change is detected. This ensures that any updates to the HAProxy configuration are applied seamlessly.
-
-## Feedback and Discussion
-
-This project was completed in approximately 6-8 hours, including the setup of Ansible, Terraform, and the CI/CD pipeline. If you have any feedback or would like to discuss the implementation further, I would be happy to schedule a feedback session.
-
-## Conclusion
-This project provides a robust foundation for deploying and managing a web application development environment using Docker, Ansible, and Terraform. It demonstrates best practices in configuration management, scalability, and load balancing on GCP.
